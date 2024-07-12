@@ -1,0 +1,95 @@
+-- DESCOMENTE ABAIXO CASO QUEIRA EXCLUIR TODOS OS OBJETOS DO BANCO
+ DROP TABLE StatusEvento;
+ DROP TABLE Sala;
+ DROP TABLE PessoaFisica;
+ DROP TABLE Evento;
+ DROP TABLE Participante;
+ DROP TABLE Responsavel;
+ DROP TABLE CentrosDeInteresse;
+ DROP TABLE ParticipanteCentroDeInteresse;
+
+-- -------------------------------------------------------------
+-- Cria estrutura de tabelas 
+-- -------------------------------------------------------------
+CREATE TABLE StatusEvento
+(
+ Id INTEGER PRIMARY KEY,
+ Nome VARCHAR(200) NULL
+);
+
+CREATE TABLE Sala
+(
+ Id INTEGER PRIMARY KEY,
+ Nome VARCHAR(200) NULL,
+ Ativo INT
+);
+
+CREATE TABLE PessoaFisica
+(
+ Id INTEGER PRIMARY KEY,
+ Nome VARCHAR(200) NULL,
+ Ativo INTEGER,
+ Email VARCHAR(200) NULL,
+ Cpf VARCHAR(200) NULL
+);
+
+CREATE TABLE Evento( 
+Id INTEGER PRIMARY KEY,
+Nome VARCHAR(200) NOT NULL,
+Ativo  INTEGER,
+DataInicio VARCHAR(200) NULL,
+DataFim VARCHAR(200) NULL,
+idStatusEvento INTEGER,
+idCentrosDeInteresse INTEGER,
+FOREIGN KEY (idStatusEvento) REFERENCES StatusEvento(id)
+);
+
+CREATE TABLE Participante
+(
+ Id INTEGER PRIMARY KEY,
+ Inscricao VARCHAR(200) NULL,
+ idPessoaFisica INTEGER,
+ idEvento  INTEGER,
+ FOREIGN KEY (idPessoaFisica) REFERENCES PessoaFisica(id),
+ FOREIGN KEY (idEvento) REFERENCES Evento(id)
+);
+
+CREATE TABLE Responsavel
+(
+ Id INTEGER PRIMARY KEY,
+ Matricula VARCHAR(200) NULL,
+ idPessoaFisica INTEGER,
+ idEvento  INTEGER,
+ FOREIGN KEY (idPessoaFisica) REFERENCES PessoaFisica(id),
+ FOREIGN KEY (idEvento) REFERENCES Evento(id)
+ );
+
+CREATE TABLE CentrosDeInteresse
+(
+ Id INTEGER PRIMARY KEY,
+ Tema VARCHAR(200) NULL,
+ Ativo INTEGER,
+ idResponsavel INTEGER,
+ idSala INTEGER,
+ FOREIGN KEY (idResponsavel) REFERENCES Responsavel(id),
+ FOREIGN KEY (idSala) REFERENCES Sala(id)
+);
+
+CREATE TABLE ParticipanteCentroDeInteresse
+(
+  IdCentrosDeInteresse INT,
+  IdParticipante INT,
+  FOREIGN KEY (IdCentrosDeInteresse) REFERENCES CentrosDeInteresse(id),
+  FOREIGN KEY (IdParticipante) REFERENCES Participante(id)
+);
+
+-- -------------------------------------------------------------
+-- Cargas iniciais
+-- -------------------------------------------------------------
+INSERT INTO SALA (Nome, Ativo) VALUES ('Sala 1', 1);
+INSERT INTO SALA (Nome, Ativo) VALUES ('Sala 2', 1);
+INSERT INTO SALA (Nome, Ativo) VALUES ('Sala 3', 1);
+INSERT INTO SALA (Nome, Ativo) VALUES ('Sala 4', 1);
+
+INSERT INTO StatusEvento (Nome) VALUES ('Agendado');
+INSERT INTO StatusEvento (Nome) VALUES ('Realizado');
