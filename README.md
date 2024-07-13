@@ -9,7 +9,8 @@ Instale as dependências: (env)$ pip install -r requirements.txt;
 
 Crie as imagens dos projetos:
 
-> Crie a imagem do docker referente ao projeto controle de acesso docker build -t eventosapi .
+Crie a imagem do docker referente ao projeto controle de acesso:
+>  docker build -t eventosapi .
 
 Crie a rede:
 
