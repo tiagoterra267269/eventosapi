@@ -6,13 +6,10 @@ Projeto de API que tem como objetivo fornecer apis para gerenciamento de eventos
 
 Instale as dependências: (env)$ pip install -r requirements.txt;
 
-
-Crie as imagens dos projetos:
-
 Crie a imagem do docker referente ao projeto controle de acesso:
 >  docker build -t eventosapi .
 
-Crie a rede:
+Crie a rede, caso nao exista:
 
 docker network create mvp_network
 
